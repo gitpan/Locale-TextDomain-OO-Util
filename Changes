@@ -1,0 +1,6 @@
+Revision history for Perl extension Locale::TextDomain:OO::Util.
+
+0.001  Sat Oct 18 12:54:09 2014
+- first version
+  by moving code from other places because Locale-TextDomain-OO and
+  Locale-TextDomain-OO-Extract need that
