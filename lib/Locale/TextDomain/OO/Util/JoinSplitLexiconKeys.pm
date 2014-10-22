@@ -14,7 +14,7 @@ with qw(
 );
 
 sub join_lexicon_key {
-    my ( $self, $arg_ref ) = @_;
+    my ( undef, $arg_ref ) = @_;
 
     my $const = Locale::TextDomain::OO::Util::Constants->instance;
 
@@ -29,7 +29,7 @@ sub join_lexicon_key {
 }
 
 sub split_lexicon_key {
-    my ( $self, $lexicon_key ) = @_;
+    my ( undef, $lexicon_key ) = @_;
 
     defined $lexicon_key
         or return {};
@@ -54,13 +54,13 @@ my $length_or_empty_list = sub {
 };
 
 sub join_message_key {
-    my ( $self, $arg_ref ) = @_;
+    my ( undef, $arg_ref ) = @_;
 
     my $const = Locale::TextDomain::OO::Util::Constants->instance;
 
-    return join $const->msg_key_separator,
+    return join $const->msg_key_separator( $arg_ref->{format} ),
         (
-            join $const->plural_separator,
+            join $const->plural_separator( $arg_ref->{format} ),
                 $length_or_empty_list->( $arg_ref->{msgid} ),
                 $length_or_empty_list->( $arg_ref->{msgid_plural} ),
         ),
@@ -68,23 +68,26 @@ sub join_message_key {
 }
 
 sub split_message_key {
-    my ( $self, $message_key ) = @_;
+    my ( undef, $message_key, $format ) = @_;
 
     defined $message_key
         or return {};
     my $const = Locale::TextDomain::OO::Util::Constants->instance;
     my ( $text, $context )
-        = split $const->msg_key_separator, $message_key;
+        = split $const->msg_key_separator($format), $message_key;
     defined $text
         or $text = q{};
     my ( $singular, $plural )
-        = split $const->plural_separator, $text;
+        = split $const->plural_separator($format), $text;
+    defined $singular
+        or $singular = q{};
+    my $list_if_defined = sub { return defined shift() ? @_ : () };
 
-    return {
-        msgctxt      => $context,
-        msgid        => $singular,
-        msgid_plural => $plural,
-    };
+    return {(
+        msgid => $singular,
+        $list_if_defined->( $context,  msgctxt      => $context ),
+        $list_if_defined->( $plural,   msgid_plural => $plural ),
+    )};
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -103,7 +106,7 @@ $HeadURL: svn+ssh://steffenw@svn.code.sf.net/p/perl-gettext-oo/code/Locale-TextD
 
 =head1 VERSION
 
-0.001
+2.001
 
 =head1 DESCRIPTION
 
@@ -137,6 +140,8 @@ This method is the reverse implementation of method join_lexicon_key.
         msgctxt      => 'my context',
         msgid        => 'simple text or singular',
         msgid_plural => 'plural',
+        # optional
+        format       => 'JSON', # default Perl
     });
 
 =head2 method split_message_key
@@ -144,6 +149,7 @@ This method is the reverse implementation of method join_lexicon_key.
 This method is the reverse implementation of method join_message_key.
 
     $hash_ref = $keys_util->split_message_key($message_key);
+    $hash_ref = $keys_util->split_message_key($message_key, 'JSON');
 
 =head1 EXAMPLE
 

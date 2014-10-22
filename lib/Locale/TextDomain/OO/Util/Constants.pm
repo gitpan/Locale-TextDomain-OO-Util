@@ -7,7 +7,7 @@ use MooX::StrictConstructor;
 use charnames qw(:full);
 use namespace::autoclean;
 
-our $VERSION = '0.001';
+our $VERSION = '2.001';
 
 with qw(
     MooX::Singleton
@@ -18,10 +18,24 @@ sub lexicon_key_separator {
 }
 
 sub msg_key_separator {
+    my ( undef, $format ) = @_;
+
+    defined $format
+        or return "\N{END OF TRANSMISSION}";
+    $format eq 'JSON'
+        and return '{MSG_KEY_SEPARATOR}';
+
     return "\N{END OF TRANSMISSION}";
 }
 
 sub plural_separator {
+    my ( undef, $format ) = @_;
+
+    defined $format
+        or return "\N{NULL}";
+    $format eq 'JSON'
+        and return '{PLURAL_SEPARATOR}';
+
     return "\N{NULL}";
 }
 
@@ -40,7 +54,7 @@ $HeadURL: svn+ssh://steffenw@svn.code.sf.net/p/perl-gettext-oo/code/Locale-TextD
 
 =head1 VERSION
 
-0.001
+2.001
 
 =head1 DESCRIPTION
 
@@ -60,11 +74,13 @@ This module provides lexicon constants.
 
 =head2 method msg_key_separator
 
-    $separator = $const->msg_key_separator;
+    $separator = $const->msg_key_separator; # Perl
+    $separator = $const->msg_key_separator('JSON');
 
 =head2 method plural_separator
 
-    $separator = $const->plural_separator;
+    $separator = $const->plural_separator; # Perl
+    $separator = $const->plural_separator('JSON');
 
 =head1 EXAMPLE
 

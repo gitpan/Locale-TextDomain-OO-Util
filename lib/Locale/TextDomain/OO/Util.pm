@@ -3,7 +3,7 @@ package Locale::TextDomain::OO::Util;
 use strict;
 use warnings;
 
-our $VERSION = '0.001';
+our $VERSION = '2.001';
 
 1;
 
@@ -18,7 +18,7 @@ $HeadURL: svn+ssh://steffenw@svn.code.sf.net/p/perl-gettext-oo/code/Locale-TextD
 
 =head1 VERSION
 
-0.001
+2.001
 
 =head1 DESCRIPTION
 

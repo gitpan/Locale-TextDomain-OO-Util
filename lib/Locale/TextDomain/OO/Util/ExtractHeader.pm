@@ -10,7 +10,7 @@ use MooX::StrictConstructor;
 require Safe;
 use namespace::autoclean;
 
-our $VERSION = '0.001';
+our $VERSION = '2.001';
 
 with qw(
     MooX::Singleton
@@ -67,7 +67,7 @@ EOC
 };
 
 sub extract_header_msgstr {
-    my ( $self, $header_msgstr ) = @_;
+    my ( undef, $header_msgstr ) = @_;
 
     defined $header_msgstr
         or confess 'Header is not defined';
@@ -129,7 +129,7 @@ $HeadURL: svn+ssh://steffenw@svn.code.sf.net/p/perl-gettext-oo/code/Locale-TextD
 
 =head1 VERSION
 
-0.001
+2.001
 
 =head1 DESCRIPTION
 

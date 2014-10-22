@@ -50,15 +50,15 @@
    "provides" : {
       "Locale::TextDomain::OO::Util" : {
          "file" : "lib/Locale/TextDomain/OO/Util.pm",
-         "version" : "0.001"
+         "version" : "2.001"
       },
       "Locale::TextDomain::OO::Util::Constants" : {
          "file" : "lib/Locale/TextDomain/OO/Util/Constants.pm",
-         "version" : "0.001"
+         "version" : "2.001"
       },
       "Locale::TextDomain::OO::Util::ExtractHeader" : {
          "file" : "lib/Locale/TextDomain/OO/Util/ExtractHeader.pm",
-         "version" : "0.001"
+         "version" : "2.001"
       },
       "Locale::TextDomain::OO::Util::JoinSplitLexiconKeys" : {
          "file" : "lib/Locale/TextDomain/OO/Util/JoinSplitLexiconKeys.pm",
@@ -71,5 +71,5 @@
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.001"
+   "version" : "2.001"
 }
