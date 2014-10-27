@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 10;
+use Test::More tests => 11;
 use Test::NoWarnings;
 use Test::Differences;
 
@@ -26,8 +26,9 @@ is
         language => 'de-de',
         category => 'my category',
         domain   => 'my domain',
+        project  => 'my project',
     }),
-    'de-de:my category:my domain',
+    'de-de:my category:my domain:my project',
     'join lexicon key';
 eq_or_diff
     $key_util->split_lexicon_key('de-de:my category:my domain'),
@@ -35,6 +36,15 @@ eq_or_diff
         language => 'de-de',
         category => 'my category',
         domain   => 'my domain',
+    },
+    'split lexicon key';
+eq_or_diff
+    $key_util->split_lexicon_key(':::my project'),
+    {
+        language => q{},
+        category => q{},
+        domain   => q{},
+        project  => 'my project',
     },
     'split lexicon key';
 

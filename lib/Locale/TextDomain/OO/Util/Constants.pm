@@ -48,7 +48,7 @@ __END__
 =head1 NAME
 Locale::TextDomain::OO::Util::Constants - Lexicon constants
 
-$Id: Constants.pm 527 2014-10-18 11:01:51Z steffenw $
+$Id: Constants.pm 532 2014-10-22 16:26:20Z steffenw $
 
 $HeadURL: svn+ssh://steffenw@svn.code.sf.net/p/perl-gettext-oo/code/Locale-TextDomain-OO-Util/trunk/lib/Locale/TextDomain/OO/Util/Constants.pm $
 

@@ -1,5 +1,9 @@
 Revision history for Perl extension Locale::TextDomain:OO::Util.
 
+2.002  Mon Oct 27 11:13:22 2014
+- added project parameter for lexicon
+- added folder javascript
+
 2.001  Wed Oct 22 18:22:31 2014
 - fixed the wrong version so jump to 2.001
 - added constants for JSON lexicon

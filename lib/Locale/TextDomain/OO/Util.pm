@@ -3,7 +3,7 @@ package Locale::TextDomain::OO::Util;
 use strict;
 use warnings;
 
-our $VERSION = '2.001';
+our $VERSION = '2.002';
 
 1;
 
@@ -12,13 +12,13 @@ __END__
 =head1 NAME
 Locale::TextDomain::OO::Util - Lexicon utils
 
-$Id: Util.pm 527 2014-10-18 11:01:51Z steffenw $
+$Id: Util.pm 532 2014-10-22 16:26:20Z steffenw $
 
 $HeadURL: svn+ssh://steffenw@svn.code.sf.net/p/perl-gettext-oo/code/Locale-TextDomain-OO-Util/trunk/lib/Locale/TextDomain/OO/Util.pm $
 
 =head1 VERSION
 
-2.001
+2.002
 
 =head1 DESCRIPTION
 
@@ -36,6 +36,11 @@ L<Locale::TextDomain::OO::Util::Constants|Locale::TextDomain::OO::Util::Constant
 L<Locale::TextDomain::OO::Util::JoinSplitLexiconKeys|Locale::TextDomain::OO::Util::JoinSplitLexiconKeys>
 
 L<Locale::TextDomain::OO::Util::ExtractHeader|Locale::TextDomain::OO::Util::ExtractHeader>
+
+=head1 JAVASCRIPT
+
+How to use the JavaScript framework see
+L<Locale::TextDomain::OO::Util::JavaScript|Locale::TextDomain::OO::Util::JavaScript>.
 
 =head1 SUBROUTINES/METHODS
 

@@ -7,7 +7,7 @@ use Moo;
 use MooX::StrictConstructor;
 use namespace::autoclean;
 
-our $VERSION = '2.001';
+our $VERSION = '2.002';
 
 with qw(
     MooX::Singleton
@@ -25,7 +25,8 @@ sub join_lexicon_key {
             : 'i-default'
         ),
         ( defined $arg_ref->{category} ? $arg_ref->{category} : q{} ),
-        ( defined $arg_ref->{domain}   ? $arg_ref->{domain}   : q{} );
+        ( defined $arg_ref->{domain}   ? $arg_ref->{domain}   : q{} ),
+        ( defined $arg_ref->{project}  ? $arg_ref->{project}  : ()  );
 }
 
 sub split_lexicon_key {
@@ -34,14 +35,15 @@ sub split_lexicon_key {
     defined $lexicon_key
         or return {};
     my $const = Locale::TextDomain::OO::Util::Constants->instance;
-    my ( $language, $category, $domain )
+    my ( $language, $category, $domain, $project )
         = split $const->lexicon_key_separator, $lexicon_key;
 
-    return {
+    return {(
         language => $language,
         category => $category,
         domain   => $domain,
-    };
+        ( defined $project ? ( project  => $project ) : () ),
+    )};
 }
 
 my $length_or_empty_list = sub {
@@ -100,13 +102,13 @@ __END__
 Locale::TextDomain::OO::Util::JoinSplitLexiconKeys
 - Handle lexicon and message key
 
-$Id: JoinSplitLexiconKeys.pm 527 2014-10-18 11:01:51Z steffenw $
+$Id: JoinSplitLexiconKeys.pm 532 2014-10-22 16:26:20Z steffenw $
 
 $HeadURL: svn+ssh://steffenw@svn.code.sf.net/p/perl-gettext-oo/code/Locale-TextDomain-OO-Util/trunk/lib/Locale/TextDomain/OO/Util/JoinSplitLexiconKeys.pm $
 
 =head1 VERSION
 
-2.001
+2.002
 
 =head1 DESCRIPTION
 
@@ -124,8 +126,10 @@ Module to handle the lexicon and message key.
 
     $lexicon_key = $keys_util->join_lexicon_key({
         category => 'LC_MESSAGES', # default q{}
-        domain   => 'TextDomain',  # defuaut q{}
-        language => 'de-de',       # default 'i-default'
+        domain   => 'TextDomain',  # default q{}
+        language => 'de-de',       # default 'i-default' = developer English
+        # mostly not needed
+        project  => 'myProject',   # default not exists
     });
 
 =head2 method split_lexicon_key
