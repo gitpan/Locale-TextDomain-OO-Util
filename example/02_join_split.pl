@@ -22,15 +22,78 @@ my $key_util = Locale::TextDomain::OO::Util::JoinSplitLexiconKeys->instance;
                     category => 'my category',
                     domain   => 'my domain',
                 }),
+                $key_util->join_lexicon_key(
+                    {
+                        language => 'de-de',
+                        category => 'my category',
+                        domain   => 'my domain',
+                        project  => 'my project',
+                    },
+                    'JSON',
+                ),
                 $key_util->split_lexicon_key('de-de:my category:my domain'),
+                $key_util->split_lexicon_key(
+                    'de-de:my category:my domain:my project',
+                    'JSON',
+                ),
                 $key_util->join_message_key({}),
                 $key_util->split_message_key,
-                $key_util->join_message_key({
-                    msgctxt      => 'my context',
-                    msgid        => 'my singular',
-                    msgid_plural => 'my plural',
-                }),
-                $key_util->split_message_key("my singular\N{NULL}my plural\N{END OF TRANSMISSION}my context"),
+                $key_util->join_message_key(
+                    {
+                        msgctxt      => 'my context',
+                        msgid        => 'my singular',
+                        msgid_plural => 'my plural',
+                    },
+                ),
+                $key_util->join_message_key(
+                    {
+                        msgctxt      => 'my context',
+                        msgid        => 'my singular',
+                        msgid_plural => 'my plural',
+                    },
+                    'JSON',
+                ),
+                $key_util->split_message_key(
+                    "my singular\N{NULL}my plural\N{END OF TRANSMISSION}my context",
+                ),
+                $key_util->split_message_key(
+                    'my singular{PLURAL_SEPARATOR}my plural{MSG_KEY_SEPARATOR}my context',
+                    'JSON',
+                ),
+                $key_util->join_message(
+                    "my singular\N{NULL}my plural\N{END OF TRANSMISSION}my context",
+                    {
+                        msgstr_plural => [ 'tr singular', 'tr plural' ],
+                    },
+                ),
+                [
+                    $key_util->split_message(
+                        {
+                            msgctxt       => 'my context',
+                            msgid         => 'my singular',
+                            msgid_plural  => 'my plural',
+                            msgstr_plural => [ 'tr singular', 'tr plural' ],
+                        },
+                    ),
+                ],
+                $key_util->join_message(
+                    'my singular{PLURAL_SEPARATOR}my plural{MSG_KEY_SEPARATOR}my context',
+                    {
+                        msgstr_plural => [ 'tr singular', 'tr plural' ],
+                    },
+                    'JSON',
+                ),
+                [
+                    $key_util->split_message(
+                        {
+                            msgctxt       => 'my context',
+                            msgid         => 'my singular',
+                            msgid_plural  => 'my plural',
+                            msgstr_plural => [ 'tr singular', 'tr plural' ],
+                        },
+                        'JSON',
+                    ),
+                ],
             ],
         ],
     )

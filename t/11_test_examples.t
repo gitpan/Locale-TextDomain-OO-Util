@@ -32,19 +32,68 @@ EOT
   "i-default::",
   {},
   "de-de:my category:my domain",
+  "de-de:my category:my domain:my project",
   {
     domain => "my domain",
     language => "de-de",
     category => "my category"
   },
+  {
+    domain => "my domain",
+    language => "de-de",
+    project => "my project",
+    category => "my category"
+  },
   "",
   {},
   "my singular\0my plural\4my context",
+  "my singular{PLURAL_SEPARATOR}my plural{MSG_KEY_SEPARATOR}my context",
   {
     msgctxt => "my context",
     msgid => "my singular",
     msgid_plural => "my plural"
-  }
+  },
+  {
+    msgctxt => "my context",
+    msgid => "my singular",
+    msgid_plural => "my plural"
+  },
+  {
+    msgctxt => "my context",
+    msgid => "my singular",
+    msgstr_plural => [
+      "tr singular",
+      "tr plural"
+    ],
+    msgid_plural => "my plural"
+  },
+  [
+    "my singular\0my plural\4my context",
+    {
+      msgstr_plural => [
+        "tr singular",
+        "tr plural"
+      ]
+    }
+  ],
+  {
+    msgctxt => "my context",
+    msgid => "my singular",
+    msgstr_plural => [
+      "tr singular",
+      "tr plural"
+    ],
+    msgid_plural => "my plural"
+  },
+  [
+    "my singular{PLURAL_SEPARATOR}my plural{MSG_KEY_SEPARATOR}my context",
+    {
+      msgstr_plural => [
+        "tr singular",
+        "tr plural"
+      ]
+    }
+  ]
 ]
 EOT
     },

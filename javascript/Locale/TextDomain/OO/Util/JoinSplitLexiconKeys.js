@@ -1,4 +1,6 @@
 /*
+version 2.003
+
 requires:
 http://jquery.com/
 localeTextDomainOOUtilConstants

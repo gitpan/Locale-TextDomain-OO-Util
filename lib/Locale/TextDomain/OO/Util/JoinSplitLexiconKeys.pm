@@ -7,7 +7,7 @@ use Moo;
 use MooX::StrictConstructor;
 use namespace::autoclean;
 
-our $VERSION = '2.002';
+our $VERSION = '3.001';
 
 with qw(
     MooX::Singleton
@@ -56,13 +56,13 @@ my $length_or_empty_list = sub {
 };
 
 sub join_message_key {
-    my ( undef, $arg_ref ) = @_;
+    my ( undef, $arg_ref, $format ) = @_;
 
     my $const = Locale::TextDomain::OO::Util::Constants->instance;
 
-    return join $const->msg_key_separator( $arg_ref->{format} ),
+    return join $const->msg_key_separator($format),
         (
-            join $const->plural_separator( $arg_ref->{format} ),
+            join $const->plural_separator($format),
                 $length_or_empty_list->( $arg_ref->{msgid} ),
                 $length_or_empty_list->( $arg_ref->{msgid_plural} ),
         ),
@@ -92,6 +92,39 @@ sub split_message_key {
     )};
 }
 
+sub join_message {
+    my ( $self, $message_key, $message_value_ref, $format ) = @_;
+
+    defined $message_key
+        or $message_key = q{};
+    ref $message_value_ref eq 'HASH'
+        or $message_value_ref = {};
+
+    return {(
+        %{$message_value_ref},
+        %{ $self->split_message_key($message_key, $format) },
+    )};
+}
+
+sub split_message {
+    my ( $self, $message, $format ) = @_;
+
+    ref $message eq 'HASH'
+        or $message = {};
+
+    my $message_key = $self->join_message_key(
+        {(
+            map {
+                $_ => delete $message->{$_};
+            }
+            qw( msgctxt msgid msgid_plural )
+        )},
+        $format,
+    );
+
+    return $message_key, $message;
+}
+
 __PACKAGE__->meta->make_immutable;
 
 1;
@@ -102,13 +135,13 @@ __END__
 Locale::TextDomain::OO::Util::JoinSplitLexiconKeys
 - Handle lexicon and message key
 
-$Id: JoinSplitLexiconKeys.pm 532 2014-10-22 16:26:20Z steffenw $
+$Id: JoinSplitLexiconKeys.pm 539 2014-10-27 10:18:37Z steffenw $
 
 $HeadURL: svn+ssh://steffenw@svn.code.sf.net/p/perl-gettext-oo/code/Locale-TextDomain-OO-Util/trunk/lib/Locale/TextDomain/OO/Util/JoinSplitLexiconKeys.pm $
 
 =head1 VERSION
 
-2.002
+3.001
 
 =head1 DESCRIPTION
 
@@ -144,16 +177,57 @@ This method is the reverse implementation of method join_lexicon_key.
         msgctxt      => 'my context',
         msgid        => 'simple text or singular',
         msgid_plural => 'plural',
-        # optional
-        format       => 'JSON', # default Perl
     });
+
+JSON format
+
+    $message_key = $keys_util->join_message_key(
+        {
+            msgctxt      => 'my context',
+            msgid        => 'simple text or singular',
+            msgid_plural => 'plural',
+        },
+        'JSON',
+    );
 
 =head2 method split_message_key
 
 This method is the reverse implementation of method join_message_key.
 
     $hash_ref = $keys_util->split_message_key($message_key);
+
+JSON format
+
     $hash_ref = $keys_util->split_message_key($message_key, 'JSON');
+
+=head2 method join_message
+
+This method puts all data into the message_ref
+
+    $message_ref = $keys_util->join_message(
+        $message_key,       # joined msgctxt, msgid, msgid_plural
+        $message_value_ref, # all other as hash reference
+    );
+
+JSON format
+
+    $message_ref = $keys_util->join_message(
+        $message_key,       # joined msgctxt, msgid, msgid_plural
+        $message_value_ref, # all other as hash reference
+        'JSON',
+    );
+
+=head2 method split_message
+
+This method splits the message reference into a message key and the rest
+
+    ( $message_key, $message_value_ref )
+        = $keys_util->split_message($message_ref);
+
+JSON format
+
+    ( $message_key, $message_value_ref )
+        = $keys_util->split_message($message_ref, 'JSON');
 
 =head1 EXAMPLE
 

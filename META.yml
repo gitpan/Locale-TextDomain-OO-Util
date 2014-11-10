@@ -20,7 +20,7 @@ name: Locale-TextDomain-OO-Util
 provides:
   Locale::TextDomain::OO::Util:
     file: lib/Locale/TextDomain/OO/Util.pm
-    version: '2.002'
+    version: '3.001'
   Locale::TextDomain::OO::Util::Constants:
     file: lib/Locale/TextDomain/OO/Util/Constants.pm
     version: '2.001'
@@ -32,7 +32,7 @@ provides:
     version: '2.002'
   Locale::TextDomain::OO::Util::JoinSplitLexiconKeys:
     file: lib/Locale/TextDomain/OO/Util/JoinSplitLexiconKeys.pm
-    version: '2.002'
+    version: '3.001'
 recommends:
   Test::Pod: '1.14'
   Test::Pod::Coverage: '1.04'
@@ -49,4 +49,4 @@ requires:
   perl: '5.006'
 resources:
   license: http://dev.perl.org/licenses/
-version: '2.002'
+version: '3.001'

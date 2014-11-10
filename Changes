@@ -1,5 +1,12 @@
 Revision history for Perl extension Locale::TextDomain:OO::Util.
 
+3.001  Mon Nov 10 12:15:32 2014
+- changed join/split JSON parameter handling in a uncompatible way
+  - no difference for JavaScript interface
+  - documented first time the Perl part
+- added method join_message and split_message
+  - no need for JavaScript
+
 2.002  Mon Oct 27 11:13:22 2014
 - added project parameter for lexicon
 - added folder javascript
